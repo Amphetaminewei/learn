@@ -1,14 +1,9 @@
 #include<iostream>
 #include<string>
 #include<vector>
-using namespace std;
+#include"Students.h"
 
-//建立全局变量数组
-vector<int> ID;    //学号
-char Name[5][10];  //姓名
-char Sex[5][3];    //性别
-int Birth[80];     //生日
-int end = 0;	   //结束,用在调用函数结束之后
+using namespace std;
 
 
 int main() {
