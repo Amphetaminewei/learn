@@ -23,3 +23,5 @@
 	4.尽可能加深对c++的理解
 
 具体思路：em...没想好呢
+
+为Students类添加了 add  read  print	combine	 以及构造函数？
