@@ -35,8 +35,25 @@ int main() {
 	cout << "请按提示选择功能:";
 	cin >> select;
 	cout << "" << endl;
+	Students total;
+	if (1 == select) {
+		string features = "欢迎使用信息录入功能";
+		string Num = "请输入想录入的人数";
+		Students trans;
+		int num = 0;
+		hello(features);
+		hello(Num);
+		read(cin, num);
+		for (int i = 0;i < num;i++) {
+			read(cin, trans);
+			//将trans加到total上↓
+			
+		}
+		print(cout, trans);
+	}
 
-
+	cin.get();
+	cin.get();
 	return 0;
 
 }

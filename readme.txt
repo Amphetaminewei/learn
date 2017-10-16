@@ -24,4 +24,9 @@
 
 具体思路：em...没想好呢
 
-为Students类添加了 add  read  print	combine	 以及构造函数？
+为Students类添加了   read  print	 以及构造函数？
+
+输入函数read(istream,&item)
+输出函数print(ostream,&item)
+欢迎函数hello(string a) 用来确定选择功能后的欢迎语
+重载了read函数 未来可能换成模板
