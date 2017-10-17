@@ -1,6 +1,3 @@
-#include<iostream>
-#include<string>
-#include<vector>
 #include"Students.h"
 
 using namespace std;
@@ -35,7 +32,7 @@ int main() {
 	cout << "请按提示选择功能:";
 	cin >> select;
 	cout << "" << endl;
-	Students total;
+	vector<Students> total;
 	if (1 == select) {
 		string features = "欢迎使用信息录入功能";
 		string Num = "请输入想录入的人数";
@@ -44,12 +41,11 @@ int main() {
 		hello(features);
 		hello(Num);
 		read(cin, num);
-		for (int i = 0;i < num;i++) {
-			read(cin, trans);
-			//将trans加到total上↓
-			
+		for (int i = 0;i < num;++i) {
+			operator>>(cin, trans);
+			total.push_back(trans);
 		}
-		print(cout, trans);
+
 	}
 
 	cin.get();

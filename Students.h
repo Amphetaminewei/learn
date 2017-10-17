@@ -14,6 +14,9 @@ class Students {
 	friend istream &read(istream &is, Students &item);
 	friend ostream &print(ostream &os, const Students &item);
 	friend istream &read(istream &is, int &item);
+	friend ostream &print(ostream &os, const vector<Students> &item);
+	friend ostream &operator << (ostream &os, Students &item);
+	friend istream &operator >> (istream &os, Students &item);
 public:
 	//¹¹Ôìº¯Êı
 	Students() = default;
@@ -25,28 +28,29 @@ public:
 		return Id;
 	}
 
-
 private:
 	string Name;
 	int Id;
 	string Sex;
 };
 
-istream &read(istream &is, Students &item) {
-	is >> item.Id >> item.Name >> item.Sex;
-	return is;
-}
-
-ostream &print(ostream &os, const Students &item) {
-	os << item.Id << " " << item.Name << " " << item.Sex;
-	return os;
-}
-void hello(const string &a) {
-	cout << a << endl;
-}
 istream &read(istream &is, int &item) {
 	is >> item;
 	return is;
 }
+
+istream &operator >> (istream &is, Students &item) {
+	is >> item.Id >> item.Name >> item.Sex;
+	return is;
+}
+ostream &operator << (ostream &os, Students &item) {
+	os << item.Id << " " << item.Name << " " << item.Sex;
+	return os;
+}
+
+void hello(const string &a) {
+	cout << a << endl;
+}
+
 
 #endif // !STUDENT_H

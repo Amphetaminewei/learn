@@ -29,4 +29,5 @@
 输入函数read(istream,&item)
 输出函数print(ostream,&item)
 欢迎函数hello(string a) 用来确定选择功能后的欢迎语
-重载了read函数 未来可能换成模板
+//重载了read函数 未来可能换成模板
+重载<<和>> 跳着看了一段  为了解决麻烦。
