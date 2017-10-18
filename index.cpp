@@ -43,7 +43,23 @@ int main() {
 		Students trans;
 		for (int i = 0;i < num;++i) {
 			operator>>(cin, trans);
-			total.push_back(trans);
+			while (operator>>(cin, trans)) {
+				try {
+					total.push_back(trans);
+					if (trans.Students_Num() == total[i].Students_Num()) {
+						throw runtime_error("You read same Id");
+					}
+				}
+					catch(runtime_error err) {
+						cout << err.what() << "This student's Id have exist" << "\nTry Again? Enter y or n" << endl;
+						string c;
+						cin >> c;
+						if (!cin || c == "n") {
+							break;
+						}
+					}
+				 
+			}
 		}
 		for (int i = 0;i < num;i++) {
 			operator<<(cout, total[i]) << endl;

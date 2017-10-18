@@ -7,6 +7,7 @@
 #include<string>
 #include<conio.h>
 #include<vector>
+#include<stdexcept>
 using namespace std;
 
 class Students {
@@ -15,7 +16,7 @@ class Students {
 public:
 	//¹¹Ôìº¯Êı
 	Students() = default;
-	Students(const string &N,const string &I,const string &S):Name(N),Id(I),Sex(S){ }
+	Students(const string &s):Name(s),Id(s),Sex(s){ }
 
 	string Students_Num() const {
 		return Id;
