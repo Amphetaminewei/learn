@@ -36,16 +36,20 @@ int main() {
 	if (1 == select) {
 		string features = "欢迎使用信息录入功能";
 		string Num = "请输入想录入的人数";
-		Students trans;
 		int num = 0;
-		hello(features);
-		hello(Num);
-		read(cin, num);
+		cout << features << endl;
+		cout << Num << endl;
+		cin >> num;
+		Students trans;
 		for (int i = 0;i < num;++i) {
 			operator>>(cin, trans);
 			total.push_back(trans);
 		}
-
+		for (int i = 0;i < num;i++) {
+			operator<<(cout, total[i]) << endl;
+		}
+		_getch();
+		return main();
 	}
 
 	cin.get();

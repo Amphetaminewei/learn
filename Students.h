@@ -10,34 +10,22 @@
 using namespace std;
 
 class Students {
-	friend void hello();
-	friend istream &read(istream &is, Students &item);
-	friend ostream &print(ostream &os, const Students &item);
-	friend istream &read(istream &is, int &item);
-	friend ostream &print(ostream &os, const vector<Students> &item);
 	friend ostream &operator << (ostream &os, Students &item);
 	friend istream &operator >> (istream &os, Students &item);
 public:
 	//¹¹Ôìº¯Êý
 	Students() = default;
-	Students(const string &N,const int &I,const string &S):Name(N),Id(I),Sex(S){ }
-	Students(istream &is) { read(is, *this); }
-	Students(ostream &os) { print(os, *this); };
+	Students(const string &N,const string &I,const string &S):Name(N),Id(I),Sex(S){ }
 
-	int Students_Num() const {
+	string Students_Num() const {
 		return Id;
 	}
 
 private:
 	string Name;
-	int Id;
+	string Id;
 	string Sex;
 };
-
-istream &read(istream &is, int &item) {
-	is >> item;
-	return is;
-}
 
 istream &operator >> (istream &is, Students &item) {
 	is >> item.Id >> item.Name >> item.Sex;
@@ -47,10 +35,5 @@ ostream &operator << (ostream &os, Students &item) {
 	os << item.Id << " " << item.Name << " " << item.Sex;
 	return os;
 }
-
-void hello(const string &a) {
-	cout << a << endl;
-}
-
 
 #endif // !STUDENT_H

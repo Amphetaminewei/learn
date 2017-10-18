@@ -24,10 +24,19 @@
 
 具体思路：em...没想好呢
 
+
+
+
+日志：
+
 为Students类添加了   read  print	 以及构造函数？
 
-输入函数read(istream,&item)
-输出函数print(ostream,&item)
-欢迎函数hello(string a) 用来确定选择功能后的欢迎语
+//输入函数read(istream,&item)
+//输出函数print(ostream,&item)
+//欢迎函数hello(string a) 用来确定选择功能后的欢迎语
 //重载了read函数 未来可能换成模板
 重载<<和>> 跳着看了一段  为了解决麻烦。
+
+em...彻底丢掉了read，print和hello函数//实在是太多余 感觉和智障一样...
+
+把数据放到了vector中  (终于)实现了数据的输入输出
