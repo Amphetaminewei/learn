@@ -41,8 +41,35 @@ int main() {
 		cout << Num << endl;
 		cin >> num;
 		Students trans;
+		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
+
 		for (int i = 0;i < num;++i) {
 			operator>>(cin, trans);
+			total.push_back(trans);
+		}
+		
+		//又一个失败的 用if也失败了   因为吧  没有重载 = 
+		/*
+		while (operator>>(cin, trans)) {
+			if (operator==(trans,pre)) {
+				cout << "this ID has resisted" << endl;
+				cout << "Try again? \n Entry y or n " << endl;
+				string c;
+				cin >> c;
+				if (!cin || "n" == c) {
+					break;
+				}
+			}
+			else if (!cin) {
+				break;
+			}
+			total.push_back(trans);
+		}
+		*/
+
+
+			//一个失败的异常处理，准备等到全部完成开始优化的时候再来考虑，目前就先用if凑合了
+			/*
 			while (operator>>(cin, trans)) {
 				try {
 					total.push_back(trans);
@@ -60,7 +87,8 @@ int main() {
 					}
 				 
 			}
-		}
+			*/
+		
 		for (int i = 0;i < num;i++) {
 			operator<<(cout, total[i]) << endl;
 		}

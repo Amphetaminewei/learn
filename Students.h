@@ -13,18 +13,21 @@ using namespace std;
 class Students {
 	friend ostream &operator << (ostream &os, Students &item);
 	friend istream &operator >> (istream &os, Students &item);
+	friend bool operator == (Students &lhs, Students &rhs);
 public:
 	//构造函数
 	Students() = default;
 	Students(const string &s):Name(s),Id(s),Sex(s){ }
 
+	//未实现 等学了内存管理再来实现
+	//Students operator = (Students lhs,Students rhs);
 	string Students_Num() const {
 		return Id;
 	}
 
 private:
-	string Name;
 	string Id;
+	string Name;
 	string Sex;
 };
 
@@ -35,6 +38,9 @@ istream &operator >> (istream &is, Students &item) {
 ostream &operator << (ostream &os, Students &item) {
 	os << item.Id << " " << item.Name << " " << item.Sex;
 	return os;
+}
+bool operator == (Students &lhs, Students &rhs) {
+	return lhs.Id == rhs.Id || lhs.Name == rhs.Name || lhs.Sex == rhs.Sex;
 }
 
 #endif // !STUDENT_H
