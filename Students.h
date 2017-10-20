@@ -40,7 +40,7 @@ ostream &operator << (ostream &os, Students &item) {
 	return os;
 }
 bool operator == (Students &lhs, Students &rhs) {
-	return lhs.Id == rhs.Id || lhs.Name == rhs.Name || lhs.Sex == rhs.Sex;
+	return lhs.Id == rhs.Id || lhs.Name == rhs.Name;
 }
 
 #endif // !STUDENT_H

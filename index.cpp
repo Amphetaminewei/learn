@@ -35,21 +35,13 @@ int main() {
 	vector<Students> total;
 	if (1 == select) {
 		string features = "欢迎使用信息录入功能";
-		string Num = "请输入想录入的人数";
-		int num = 0;
+		string Num = "输入(三次)stop停止"; 
 		cout << features << endl;
 		cout << Num << endl;
-		cin >> num;
 		Students trans;
 		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
-
-		for (int i = 0;i < num;++i) {
-			operator>>(cin, trans);
-			total.push_back(trans);
-		}
 		
-		//又一个失败的 用if也失败了   因为吧  没有重载 = 
-		/*
+		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
 		while (operator>>(cin, trans)) {
 			if (operator==(trans,pre)) {
 				cout << "this ID has resisted" << endl;
@@ -59,13 +51,19 @@ int main() {
 				if (!cin || "n" == c) {
 					break;
 				}
+				else {
+					cout << "Let's try again!" << endl;
+				}
 			}
-			else if (!cin) {
+			else if (trans.Students_Num() == "stop") {
 				break;
 			}
-			total.push_back(trans);
+			else {
+				total.push_back(trans);
+				pre = trans;
+			}
 		}
-		*/
+		
 
 
 			//一个失败的异常处理，准备等到全部完成开始优化的时候再来考虑，目前就先用if凑合了
@@ -88,10 +86,12 @@ int main() {
 				 
 			}
 			*/
-		
-		for (int i = 0;i < num;i++) {
+
+		//测试用
+		for (int i = 0;i < 2;i++) {
 			operator<<(cout, total[i]) << endl;
 		}
+		cout << "按任意键返回" << endl;
 		_getch();
 		return main();
 	}
