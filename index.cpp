@@ -1,7 +1,8 @@
 #include"Students.h"
 
 using namespace std;
-
+using std::cin;
+using std::cout;
 
 int main() {
 
@@ -28,11 +29,21 @@ int main() {
 	cout << "使用前请先录入信息" << endl;
 	cout << "" << endl;
 
+	/*
+	ifstream in("C:\\shit,txt");
+	ofstream out("C:\\shit.txt");
+	if (out) {
+		out << "the fuck fstream" << endl;
+	}
+	*/
+
 	int select = 0;
 	cout << "请按提示选择功能:";
 	cin >> select;
 	cout << "" << endl;
 	vector<Students> total;
+
+
 	if (1 == select) {
 		string features = "欢迎使用信息录入功能";
 		string Num = "输入(三次)stop停止"; 
@@ -59,7 +70,11 @@ int main() {
 				break;
 			}
 			else {
-				total.push_back(trans);
+				//可以将数据输出到Student_Iformation.txt  但是汉字会出乱码。。。
+				ofstream out("C:\\Student_Information.txt",ios::app);
+				operator<<(out, trans);
+				//total.push_back(trans);
+				out.close();
 				pre = trans;
 			}
 		}
@@ -88,9 +103,7 @@ int main() {
 			*/
 
 		//测试用
-		for (int i = 0;i < 2;i++) {
-			operator<<(cout, total[i]) << endl;
-		}
+		
 		cout << "按任意键返回" << endl;
 		_getch();
 		return main();

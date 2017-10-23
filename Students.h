@@ -8,6 +8,7 @@
 #include<conio.h>
 #include<vector>
 #include<stdexcept>
+#include<fstream>
 using namespace std;
 
 class Students {
