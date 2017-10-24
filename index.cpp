@@ -4,8 +4,11 @@ using namespace std;
 using std::cin;
 using std::cout;
 
-int main() {
+vector<Students> total;
+//vector<Students> *total = new vector<Students>;
 
+int main() {
+welcome:
 	cout << "■■■■■■■■■■■■■■■■■■■" << endl;
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
 	cout << "■　　 欢迎使用学生信息管理系统 　　■" << endl;
@@ -22,7 +25,7 @@ int main() {
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
 	cout << "■    5.查询            6.追加      ■" << endl;
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
-	cout << "■    7.排序            8.退出      ■" << endl;
+	cout << "■    7.排序      8.退出并保存      ■" << endl;
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
 	cout << "■■■■■■■■■■■■■■■■■■■" << endl;
 	cout << "" << endl;
@@ -41,8 +44,6 @@ int main() {
 	cout << "请按提示选择功能:";
 	cin >> select;
 	cout << "" << endl;
-	vector<Students> total;
-
 
 	if (1 == select) {
 		string features = "欢迎使用信息录入功能";
@@ -71,12 +72,13 @@ int main() {
 			}
 			else {
 				//可以将数据输出到Student_Iformation.txt  但是汉字会出乱码。。。
-				ofstream out("C:\\Student_Information.txt",ios::app);
-				operator<<(out, trans);
-				//total.push_back(trans);
-				out.close();
+				total.push_back(trans);
 				pre = trans;
+				
 			}
+		}
+		for (auto i = total.begin();i != total.end();++i) {
+			operator<<(cout, *i) << endl;
 		}
 		
 
@@ -102,11 +104,21 @@ int main() {
 			}
 			*/
 
-		//测试用
 		
 		cout << "按任意键返回" << endl;
 		_getch();
-		return main();
+		goto welcome;
+	}
+
+	else if(8 == select) {
+		
+		for (auto i = total.begin();i != total.end();++i) {
+			ofstream out("C:\\Student_Information.txt", ios::app);
+			operator<<(out, *i) << endl;
+			out.close();
+		}
+		
+
 	}
 
 	cin.get();
