@@ -4,11 +4,10 @@ using namespace std;
 using std::cin;
 using std::cout;
 
-vector<Students> total;
-//vector<Students> *total = new vector<Students>;
+//vector<Students> total;
+vector<Students> *total = new vector<Students>;
 
 int main() {
-welcome:
 	cout << "■■■■■■■■■■■■■■■■■■■" << endl;
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
 	cout << "■　　 欢迎使用学生信息管理系统 　　■" << endl;
@@ -72,12 +71,12 @@ welcome:
 			}
 			else {
 				//可以将数据输出到Student_Iformation.txt  但是汉字会出乱码。。。
-				total.push_back(trans);
+				(*total).push_back(trans);
 				pre = trans;
 				
 			}
 		}
-		for (auto i = total.begin();i != total.end();++i) {
+		for (auto i = (*total).begin();i != (*total).end();++i) {
 			operator<<(cout, *i) << endl;
 		}
 		
@@ -107,12 +106,12 @@ welcome:
 		
 		cout << "按任意键返回" << endl;
 		_getch();
-		goto welcome;
+		return main();
 	}
 
 	else if(8 == select) {
 		
-		for (auto i = total.begin();i != total.end();++i) {
+		for (auto i = (*total).begin();i != (*total).end();++i) {
 			ofstream out("C:\\Student_Information.txt", ios::app);
 			operator<<(out, *i) << endl;
 			out.close();
@@ -121,6 +120,7 @@ welcome:
 
 	}
 
+	delete total;
 	cin.get();
 	cin.get();
 	return 0;
