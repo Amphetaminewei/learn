@@ -51,7 +51,11 @@ int main() {
 		cout << Num << endl;
 		Students trans;
 		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
-		
+		Students item;//用来从文件读取数据
+		ifstream in("C:\\Student_Information.txt");
+		operator>>(in, item);
+		(*total).push_back(item);
+
 		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
 		while (operator>>(cin, trans)) {
 			if (operator==(trans,pre)) {
