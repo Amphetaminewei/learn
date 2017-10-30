@@ -31,13 +31,16 @@ int main() {
 	cout << "使用前请先录入信息" << endl;
 	cout << "" << endl;
 
-	/*
-	ifstream in("C:\\shit,txt");
-	ofstream out("C:\\shit.txt");
-	if (out) {
-		out << "the fuck fstream" << endl;
+	Students item;//用来从文件读取数据
+	ifstream in("C:\\Student_Information.txt");
+	if (!in) {
+		cout << "infile error" << endl;
 	}
-	*/
+	while (in) {
+		operator>>(in, item);
+		(*total).push_back(item);
+
+	}
 
 	int select = 0;
 	cout << "请按提示选择功能:";
@@ -51,26 +54,28 @@ int main() {
 		cout << Num << endl;
 		Students trans;
 		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
-		Students item;//用来从文件读取数据
-		ifstream in("C:\\Student_Information.txt");
-		operator>>(in, item);
-		(*total).push_back(item);
 
 		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
 		while (operator>>(cin, trans)) {
-			if (operator==(trans,pre)) {
-				cout << "this ID has resisted" << endl;
-				cout << "Try again? \n Entry y or n " << endl;
-				string c;
-				cin >> c;
-				if (!cin || "n" == c) {
-					break;
-				}
-				else {
-					cout << "Let's try again!" << endl;
+			//检查时有些问题。。进入了死循环。
+			for (auto i = (*total).begin();i != (*total).end();++i) {
+				pre = *i;
+				if (operator==(pre, trans)) {
+					cout << "this ID has resisted" << endl;
+					cout << "Try again? \n Entry y or n " << endl;
+					string c;
+					cin >> c;
+					if (!cin || "n" == c) {
+						cout << "end input" << endl;
+					}
+					else {
+						cout << "Let's try again!" << endl;
+						break;
+					}
+
 				}
 			}
-			else if (trans.Students_Num() == "stop") {
+			if (trans.Students_Num() == "stop") {
 				break;
 			}
 			else {
@@ -114,12 +119,13 @@ int main() {
 	}
 
 	else if(8 == select) {
-		
+		//在循环之前打开文件更新文件内容
+		ofstream out("C:\\Student_Information.txt", ios::out);
 		for (auto i = (*total).begin();i != (*total).end();++i) {
-			ofstream out("C:\\Student_Information.txt", ios::app);
 			operator<<(out, *i) << endl;
-			out.close();
 		}
+		//并在结束循环后关闭
+		out.close();
 		
 
 	}
