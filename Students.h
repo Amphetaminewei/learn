@@ -9,6 +9,7 @@
 #include<vector>
 #include<stdexcept>
 #include<fstream>
+
 using namespace std;
 
 class Students {
@@ -20,8 +21,8 @@ public:
 	Students() = default;
 	Students(const string &s):Name(s),Id(s),Sex(s){ }
 
-	//未实现 等学了内存管理再来实现
-	//Students operator = (Students lhs,Students rhs);
+	bool Same(vector<Students> &i);
+
 	string Students_Num() const {
 		return Id;
 	}
@@ -31,6 +32,14 @@ private:
 	string Name;
 	string Sex;
 };
+
+bool Students::Same(vector<Students> &i) {
+	for (auto be = i.begin();be != i.end();++be) {
+		if ((*be).Students_Num() == Id) {
+			return 1;
+		}
+	}
+}
 
 istream &operator >> (istream &is, Students &item) {
 	is >> item.Id >> item.Name >> item.Sex;
@@ -43,5 +52,6 @@ ostream &operator << (ostream &os, Students &item) {
 bool operator == (Students &lhs, Students &rhs) {
 	return lhs.Id == rhs.Id || lhs.Name == rhs.Name;
 }
+
 
 #endif // !STUDENT_H

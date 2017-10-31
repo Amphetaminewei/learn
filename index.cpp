@@ -31,23 +31,29 @@ int main() {
 	cout << "使用前请先录入信息" << endl;
 	cout << "" << endl;
 
-	Students item;//用来从文件读取数据
-	ifstream in("C:\\Student_Information.txt");
-	if (!in) {
-		cout << "infile error" << endl;
-	}
-	while (in) {
-		operator>>(in, item);
-		(*total).push_back(item);
-
-	}
-
 	int select = 0;
 	cout << "请按提示选择功能:";
 	cin >> select;
 	cout << "" << endl;
 
+
 	if (1 == select) {
+
+		//先从文件中读取信息
+		ifstream in("C:\\Student_Information.txt");
+		if (in.is_open()) {
+			while (!in.eof()) {
+				Students item;
+				operator>>(in, item);
+				(*total).push_back(item);
+			}
+			in.close();
+		}
+		else {
+			cout << "open error" << endl;
+		}
+
+		//操作提示
 		string features = "欢迎使用信息录入功能";
 		string Num = "输入(三次)stop停止"; 
 		cout << features << endl;
@@ -55,36 +61,42 @@ int main() {
 		Students trans;
 		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
 
+		//输入信息
 		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
+again:
 		while (operator>>(cin, trans)) {
 			//检查时有些问题。。进入了死循环。
-			for (auto i = (*total).begin();i != (*total).end();++i) {
-				pre = *i;
-				if (operator==(pre, trans)) {
-					cout << "this ID has resisted" << endl;
-					cout << "Try again? \n Entry y or n " << endl;
-					string c;
-					cin >> c;
-					if (!cin || "n" == c) {
-						cout << "end input" << endl;
-					}
-					else {
-						cout << "Let's try again!" << endl;
-						break;
-					}
 
-				}
-			}
 			if (trans.Students_Num() == "stop") {
 				break;
 			}
+			else if (trans.Same(*total)) {
+				cout << "this ID has resisted" << endl;
+				cout << "Try again? \n Entry y or n " << endl;
+				string c;
+				cin >> c;
+				if (!cin || "n" == c) {
+					cout << "end input" << endl;
+					break;
+				}
+				else if("y" == c) {
+					cout << "Let's try again!" << endl;
+					goto again;
+				}
+			}
+			(*total).push_back(trans);
+			
+		}
+		auto i = (*total).begin();
+		while (i != (*total).end()) {
+			if ((*i).Students_Num().empty()) {
+				i = (*total).erase(i);
+			}
 			else {
-				//可以将数据输出到Student_Iformation.txt  但是汉字会出乱码。。。
-				(*total).push_back(trans);
-				pre = trans;
-				
+				++i;
 			}
 		}
+
 		for (auto i = (*total).begin();i != (*total).end();++i) {
 			operator<<(cout, *i) << endl;
 		}
@@ -119,15 +131,19 @@ int main() {
 	}
 
 	else if(8 == select) {
+
+		ofstream del("C:\\Student_Information.txt", ios::out);
+		del.clear();
+		del.close();
+
 		//在循环之前打开文件更新文件内容
-		ofstream out("C:\\Student_Information.txt", ios::out);
+		ofstream out("C:\\Student_Information.txt", ios::app);
 		for (auto i = (*total).begin();i != (*total).end();++i) {
 			operator<<(out, *i) << endl;
 		}
 		//并在结束循环后关闭
 		out.close();
 		
-
 	}
 
 	delete total;
