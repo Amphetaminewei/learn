@@ -21,8 +21,10 @@ public:
 	Students() = default;
 	Students(const string &s):Name(s),Id(s),Sex(s){ }
 
+	//判断信息是否重复函数
 	bool Same(vector<Students> &i);
 
+	//为获取学生学号留的接口
 	string Students_Num() const {
 		return Id;
 	}

@@ -59,14 +59,12 @@ int main() {
 		cout << features << endl;
 		cout << Num << endl;
 		Students trans;
-		Students pre = trans;  //为了用if实现对于输入同一个人的信息进行处理
+		Students pre = trans;  //为了用if实现对于输入重复的信息进行处理
 
 		//输入信息
 		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
 again:
 		while (operator>>(cin, trans)) {
-			//检查时有些问题。。进入了死循环。
-
 			if (trans.Students_Num() == "stop") {
 				break;
 			}
@@ -132,6 +130,7 @@ again:
 
 	else if(8 == select) {
 
+		//将文件原本内容删除
 		ofstream del("C:\\Student_Information.txt", ios::out);
 		del.clear();
 		del.close();
