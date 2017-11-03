@@ -8,6 +8,7 @@ using std::cout;
 vector<Students> *total = new vector<Students>;
 
 int main() {
+
 	cout << "■■■■■■■■■■■■■■■■■■■" << endl;
 	cout << "■　　　　　　　　　　　　　　　　　■" << endl;
 	cout << "■　　 欢迎使用学生信息管理系统 　　■" << endl;
@@ -95,9 +96,7 @@ again:
 			}
 		}
 
-		for (auto i = (*total).begin();i != (*total).end();++i) {
-			operator<<(cout, *i) << endl;
-		}
+		Put((*total));
 		
 
 
@@ -126,6 +125,10 @@ again:
 		cout << "按任意键返回" << endl;
 		_getch();
 		return main();
+	}
+
+	else if (2 == select) {
+		Put((*total));
 	}
 
 	else if(8 == select) {

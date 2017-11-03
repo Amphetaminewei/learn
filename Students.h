@@ -9,6 +9,8 @@
 #include<vector>
 #include<stdexcept>
 #include<fstream>
+#include<algorithm>
+#include<numeric>
 
 using namespace std;
 
@@ -35,6 +37,14 @@ private:
 	string Sex;
 };
 
+//非成员函数声明
+//输出现有学生信息
+void Put(vector<Students> &i);
 
+//读取文件中的信息
+void Read_Doc(vector<Students> &item1);
+
+//更新文件的内容
+void Put_Doc(vector<Students> &i);
 
 #endif // !STUDENT_H
