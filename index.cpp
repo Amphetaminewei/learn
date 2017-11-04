@@ -40,19 +40,7 @@ int main() {
 
 	if (1 == select) {
 
-		//先从文件中读取信息
-		ifstream in("C:\\Student_Information.txt");
-		if (in.is_open()) {
-			while (!in.eof()) {
-				Students item;
-				operator>>(in, item);
-				(*total).push_back(item);
-			}
-			in.close();
-		}
-		else {
-			cout << "open error" << endl;
-		}
+		readDoc(*total);
 
 		//操作提示
 		string features = "欢迎使用信息录入功能";
@@ -69,7 +57,7 @@ again:
 			if (trans.Students_Num() == "stop") {
 				break;
 			}
-			else if (trans.Same(*total)) {
+			else if (trans.ifSameId(*total)) {
 				cout << "this ID has resisted" << endl;
 				cout << "Try again? \n Entry y or n " << endl;
 				string c;
@@ -96,9 +84,10 @@ again:
 			}
 		}
 
-		Put((*total));
+		putStudentsInformation(*total);
 		
-
+		openDoc();
+		putDoc(*total);
 
 			//一个失败的异常处理，准备等到全部完成开始优化的时候再来考虑，目前就先用if凑合了
 			/*
@@ -128,24 +117,73 @@ again:
 	}
 
 	else if (2 == select) {
-		Put((*total));
+		if (!(*total).empty()) {
+			//如果信息已经被输入total则直接输出
+			putStudentsInformation(*total);
+		}
+		else {
+			//否则将信息存到另一个vector中然后输出
+			//防止了像total中重复录入信息
+			vector<Students> *forPutInformation = new vector<Students>;
+			readDoc(*forPutInformation);
+			if (!(*forPutInformation).empty()) {
+				putStudentsInformation(*forPutInformation);
+				delete forPutInformation;
+			}
+			else {
+				delete forPutInformation;
+				cout << "请先输入信息" << endl;
+				_getch();
+				return main();
+			}
+		}
+
+		cout << "按任意键退出" << endl;
+		_getch();
+		return main();
+	}
+
+	else if (7 == select) {
+		if (!(*total).empty()) {
+			//如果之前已经将文件中的信息输入到了total
+			//直接对total进行排序并更新文件内容
+			stable_sort((*total).begin(), (*total).end(), smallId);
+			putStudentsInformation(*total);
+			openDoc();
+			putDoc(*total);
+		}
+		else {
+			//如果文件中的信息还没输入到total
+			//将文件存到另一个Studennts类型的vector中
+			//排序并更新文件信息
+			vector<Students> *forSortInformation = new vector<Students>;
+			readDoc(*forSortInformation);
+			//判断文件是否是空的，如果是，提示录入信息
+			if (!(*forSortInformation).empty()) {
+				stable_sort((*forSortInformation).begin(), (*forSortInformation).end(), smallId);
+				putStudentsInformation(*forSortInformation);
+				openDoc();
+				putDoc(*forSortInformation);
+				delete forSortInformation;
+			}
+			else {
+				delete forSortInformation;
+				cout << "请先录入信息" << endl;
+				return main();
+			}
+		}
+
+		cout << "按任意键退出" << endl;
+		_getch();
+		return main();
 	}
 
 	else if(8 == select) {
 
 		//将文件原本内容删除
-		ofstream del("C:\\Student_Information.txt", ios::out);
-		del.clear();
-		del.close();
-
-		//在循环之前打开文件更新文件内容
-		ofstream out("C:\\Student_Information.txt", ios::app);
-		for (auto i = (*total).begin();i != (*total).end();++i) {
-			operator<<(out, *i) << endl;
-		}
-		//并在结束循环后关闭
-		out.close();
-		
+		openDoc();
+		putDoc(*total);
+	
 	}
 
 	delete total;

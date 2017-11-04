@@ -23,10 +23,10 @@ public:
 	Students() = default;
 	Students(const string &s):Name(s),Id(s),Sex(s){ }
 
-	//判断信息是否重复函数
-	bool Same(vector<Students> &i);
+	//如果对象的Id和参数的重复返回1
+	bool ifSameId(vector<Students> &i);
 
-	//为获取学生学号留的接口
+	//返回值为对象的Id
 	string Students_Num() const {
 		return Id;
 	}
@@ -38,13 +38,20 @@ private:
 };
 
 //非成员函数声明
-//输出现有学生信息
-void Put(vector<Students> &i);
+//输出参数中储存的学生信息
+void putStudentsInformation(vector<Students> &i);
 
-//读取文件中的信息
-void Read_Doc(vector<Students> &item1);
+//传入一个Students类型的vector，将文件中的信息存到其中，目前只实现了存到固定文件中
+void readDoc(vector<Students> &item1);
 
-//更新文件的内容
-void Put_Doc(vector<Students> &i);
+//传入一个Students类型的vector，将其中的信息保存到文件
+void putDoc(vector<Students> &item);
+
+//清空 C:\\Student_Information.txt中的内容
+void openDoc();
+
+//作为谓词
+bool smallId(const Students &s1,const Students &s2);
+
 
 #endif // !STUDENT_H
