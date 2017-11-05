@@ -3,7 +3,7 @@
 //检查学生信息是否重复
 bool Students::ifSameId(vector<Students> &i) {
 	for (auto be = i.begin();be != i.end();++be) {
-		if ((*be).Students_Num() == Id) {
+		if ((*be).getStudentsNum() == Id) {
 			return 1;
 			break;
 		}
@@ -74,8 +74,9 @@ void readDoc(vector<Students> &item) {
 	}
 }
 
-//作为谓词
-bool smallId(const Students &s1, const Students &s2) {
-	return s1.Students_Num() < s2.Students_Num();
+bool ifNotExitInformation(const vector<Students> &i) {
+	auto be = i.begin();
+	if ((*be).getStudentsNum() < 1) {
+		return 0;
+	}
 }
-

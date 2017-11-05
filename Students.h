@@ -11,6 +11,7 @@
 #include<fstream>
 #include<algorithm>
 #include<numeric>
+#include<Windows.h>
 
 using namespace std;
 
@@ -21,18 +22,21 @@ class Students {
 public:
 	//构造函数
 	Students() = default;
-	Students(const string &s):Name(s),Id(s),Sex(s){ }
+	Students(const string &s,const int &i):Name(s),Id(i),Sex(s){ }
 
 	//如果对象的Id和参数的重复返回1
 	bool ifSameId(vector<Students> &i);
 
 	//返回值为对象的Id
-	string Students_Num() const {
+	int getStudentsNum() const {
 		return Id;
+	}
+	string getStudentsName() const {
+		return Name;
 	}
 
 private:
-	string Id;
+	int Id;
 	string Name;
 	string Sex;
 };
@@ -50,8 +54,6 @@ void putDoc(vector<Students> &item);
 //清空 C:\\Student_Information.txt中的内容
 void openDoc();
 
-//作为谓词
-bool smallId(const Students &s1,const Students &s2);
-
+bool ifNotExitInformation(const vector<Students> &i);
 
 #endif // !STUDENT_H

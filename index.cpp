@@ -54,11 +54,19 @@ int main() {
 		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
 again:
 		while (operator>>(cin, trans)) {
-			if (trans.Students_Num() == "stop") {
+			if (trans.getStudentsName() == "stop") {
 				break;
 			}
 			else if (trans.ifSameId(*total)) {
-				cout << "this ID has resisted" << endl;
+				int hasBeenId = MessageBox(NULL, TEXT("Try again?"), TEXT("this ID has resisted"), MB_YESNO);
+				if (IDYES == hasBeenId) {
+					goto again;
+				}
+				else {
+					MessageBox(NULL, TEXT("END OF PRINT"), TEXT("END"), MB_OK);
+					break;
+				}
+				/*cout << "this ID has resisted" << endl;
 				cout << "Try again? \n Entry y or n " << endl;
 				string c;
 				cin >> c;
@@ -69,14 +77,14 @@ again:
 				else if("y" == c) {
 					cout << "Let's try again!" << endl;
 					goto again;
-				}
+				}*/
 			}
 			(*total).push_back(trans);
 			
 		}
 		auto i = (*total).begin();
 		while (i != (*total).end()) {
-			if ((*i).Students_Num().empty()) {
+			if ((*i).getStudentsName().empty()) {
 				i = (*total).erase(i);
 			}
 			else {
@@ -110,9 +118,6 @@ again:
 			}
 			*/
 
-		
-		cout << "按任意键返回" << endl;
-		_getch();
 		return main();
 	}
 
@@ -126,14 +131,17 @@ again:
 			//防止了像total中重复录入信息
 			vector<Students> *forPutInformation = new vector<Students>;
 			readDoc(*forPutInformation);
-			if (!(*forPutInformation).empty()) {
+			if (ifNotExitInformation(*forPutInformation)) {
 				putStudentsInformation(*forPutInformation);
 				delete forPutInformation;
 			}
 			else {
 				delete forPutInformation;
+				MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				/*
 				cout << "请先输入信息" << endl;
 				_getch();
+				*/
 				return main();
 			}
 		}
@@ -147,7 +155,7 @@ again:
 		if (!(*total).empty()) {
 			//如果之前已经将文件中的信息输入到了total
 			//直接对total进行排序并更新文件内容
-			stable_sort((*total).begin(), (*total).end(), smallId);
+			stable_sort((*total).begin(), (*total).end(), [](const Students &a, const Students &b) {return a.getStudentsNum() < b.getStudentsNum();});
 			putStudentsInformation(*total);
 			openDoc();
 			putDoc(*total);
@@ -159,8 +167,9 @@ again:
 			vector<Students> *forSortInformation = new vector<Students>;
 			readDoc(*forSortInformation);
 			//判断文件是否是空的，如果是，提示录入信息
-			if (!(*forSortInformation).empty()) {
-				stable_sort((*forSortInformation).begin(), (*forSortInformation).end(), smallId);
+			if (ifNotExitInformation(*forSortInformation)) {
+				//按照学号的升序排序
+				stable_sort((*forSortInformation).begin(), (*forSortInformation).end(), [](const Students &a, const Students &b) {return a.getStudentsNum() < b.getStudentsNum();});
 				putStudentsInformation(*forSortInformation);
 				openDoc();
 				putDoc(*forSortInformation);
@@ -168,7 +177,10 @@ again:
 			}
 			else {
 				delete forSortInformation;
+				int i = MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				/*
 				cout << "请先录入信息" << endl;
+				*/
 				return main();
 			}
 		}
@@ -179,11 +191,7 @@ again:
 	}
 
 	else if(8 == select) {
-
-		//将文件原本内容删除
-		openDoc();
-		putDoc(*total);
-	
+		int theEnd = MessageBox(NULL, TEXT("谢谢使用"),TEXT("wlecome back"), MB_OK);
 	}
 
 	delete total;
