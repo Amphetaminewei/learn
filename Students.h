@@ -54,6 +54,7 @@ void putDoc(vector<Students> &item);
 //清空 C:\\Student_Information.txt中的内容
 void openDoc();
 
+//接受一个Students的vector判断参数是否为空
 bool ifNotExitInformation(const vector<Students> &i);
 
 #endif // !STUDENT_H
