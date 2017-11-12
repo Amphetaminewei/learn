@@ -74,9 +74,14 @@ void readDoc(vector<Students> &item) {
 	}
 }
 
-bool ifNotExitInformation(const vector<Students> &i) {
-	auto be = i.begin();
-	if ((*be).getStudentsNum() < 1) {
-		return 0;
+void delEmpty(vector<Students> &item) {
+	auto i = item.begin();
+	while (i != item.end()) {
+		if ((*i).getStudentsName().empty()) {
+			i = item.erase(i);
+		}
+		else {
+			++i;
+		}
 	}
 }

@@ -42,6 +42,7 @@ private:
 };
 
 //非成员函数声明
+
 //输出参数中储存的学生信息
 void putStudentsInformation(vector<Students> &i);
 
@@ -54,7 +55,8 @@ void putDoc(vector<Students> &item);
 //清空 C:\\Student_Information.txt中的内容
 void openDoc();
 
-//接受一个Students的vector判断参数是否为空
-bool ifNotExitInformation(const vector<Students> &i);
+
+//删除信息中多余的空项
+void delEmpty(vector<Students> &item);
 
 #endif // !STUDENT_H

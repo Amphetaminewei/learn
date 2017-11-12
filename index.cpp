@@ -52,7 +52,7 @@ int main() {
 		Students pre = trans;  //为了用if实现对于输入重复的信息进行处理
 
 		//输入信息
-		//em...是我想多了 但是呢 stop需要出入三次才能跳出循环
+		//em...是我想多了 但是呢需要出入三次才能跳出循环
 again:
 		while (operator>>(cin, trans)) {
 			if (trans.getStudentsNum() == 0) {
@@ -73,15 +73,7 @@ again:
 			}
 			
 		}
-		auto i = (*total).begin();
-		while (i != (*total).end()) {
-			if ((*i).getStudentsName().empty()) {
-				i = (*total).erase(i);
-			}
-			else {
-				++i;
-			}
-		}
+		delEmpty(*total);
 
 		putStudentsInformation(*total);
 		
@@ -99,14 +91,13 @@ again:
 		else {
 			//否则将信息存到另一个vector中然后输出
 			//防止了像total中重复录入信息
-			vector<Students> *forPutInformation = new vector<Students>;
-			readDoc(*forPutInformation);
-			if (ifNotExitInformation(*forPutInformation)) {
-				putStudentsInformation(*forPutInformation);
-				delete forPutInformation;
+			vector<Students> forPutInformation;
+			readDoc(forPutInformation);
+			if (!(forPutInformation).empty()) {
+				delEmpty(forPutInformation);
+				putStudentsInformation(forPutInformation);
 			}
 			else {
-				delete forPutInformation;
 				MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
 				return main();
 			}
@@ -115,6 +106,95 @@ again:
 		cout << "按任意键退出" << endl;
 		_getch();
 		return main();
+	}
+
+	else if (3 == iSelect) {
+		//先判断total中是否已经有信息
+		if (!(*total).empty()) {
+			cout << "请输入想修改的学生的学号:";
+			int item;
+			cin >> item;
+			auto findId = find_if((*total).begin(), (*total).end(), [item](const Students &i) {return i.getStudentsNum() == item;});
+			if (findId != (*total).end()) {
+				cout << *findId << endl;
+				cout << "请输入新的信息:";
+				cin >> *findId;
+				openDoc();
+				putDoc(*total);
+				return main();
+			}
+			else {
+				MessageBox(NULL, TEXT("No information for this student"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				return main();
+			}
+		}
+		else {
+			vector<Students> forChangeInformation;
+			readDoc(forChangeInformation);
+			if (!forChangeInformation.empty()) {
+				cout << "请输入想修改的学生的学号:";
+				int item;
+				cin >> item;
+				auto findId = find_if(forChangeInformation.begin(), forChangeInformation.end(), [item](const Students &i) {return i.getStudentsNum() == item;});
+				if (findId != forChangeInformation.end()) {
+					cout << *findId << endl;
+					cout << "请输入新的信息:";
+					cin >> *findId;
+					delEmpty(forChangeInformation);
+					openDoc();
+					putDoc(forChangeInformation);
+					return main();
+				}
+				else {
+					MessageBox(NULL, TEXT("No information for this student"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+					return main();
+				}
+			}
+			else {
+				MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				return main();
+			}
+		}
+	}
+
+	else if (4 == iSelect) {
+		if (!(*total).empty()) {
+			int item;
+			cout << "请输入想删除信息的学号:";
+			cin >> item;
+			auto findId = find_if((*total).begin(), (*total).end(), [item](const Students &i) {return i.getStudentsNum() == item;});
+			if (findId != (*total).end()) {
+				(*total).erase(findId);
+				MessageBox(NULL, TEXT("delete successe"), TEXT(""), MB_ICONEXCLAMATION | MB_OK);
+				openDoc();
+				putDoc(*total);
+				return main();
+			}
+			else {
+				MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				return main();
+			}
+		}
+		else {
+			int item;
+			cout << "请输入想删除信息的学号:";
+			cin >> item;
+			vector<Students> forDeleteInformation;
+			readDoc(forDeleteInformation);
+			auto findId = find_if(forDeleteInformation.begin(), forDeleteInformation.end(), [item](const Students &i) {return i.getStudentsNum() == item;});
+			if (findId != forDeleteInformation.end()) {
+				forDeleteInformation.erase(findId);
+				MessageBox(NULL, TEXT("delete successe"), TEXT(""), MB_ICONEXCLAMATION | MB_OK);
+				delEmpty(forDeleteInformation);
+				openDoc();
+				putDoc(forDeleteInformation);
+				return main();
+			}
+			else {
+				MessageBox(NULL, TEXT("Please read information befor"), TEXT("No Information"), MB_ICONEXCLAMATION | MB_OK);
+				return main();
+			}
+		}
 	}
 
 	else if (5 == iSelect) {
@@ -150,6 +230,32 @@ again:
 		}
 	}
 
+	else if (6 == iSelect) {
+		if (!(*total).empty()) {
+			Students addInformation;
+			cout << "请输入想添加的信息:";
+			operator>>(cin, addInformation);
+			(*total).push_back(addInformation);
+			openDoc();
+			putDoc(*total);
+			MessageBox(NULL, TEXT("Add successe"), TEXT("Success"), MB_ICONEXCLAMATION | MB_OK);
+			return main();
+		}
+		else {
+			vector<Students> forAddInformation;
+			readDoc(forAddInformation);
+			Students addInformation;
+			cout << "请输入想添加的信息:";
+			operator>>(cin, addInformation);
+			forAddInformation.push_back(addInformation);
+			delEmpty(forAddInformation);
+			openDoc();
+			putDoc(forAddInformation);
+			MessageBox(NULL, TEXT("Add successe"), TEXT("Success"), MB_ICONEXCLAMATION | MB_OK);
+			return main();
+		}
+	}
+
 	else if (7 == iSelect) {
 		if (!(*total).empty()) {
 			//如果之前已经将文件中的信息输入到了total
@@ -166,7 +272,7 @@ again:
 			vector<Students> forSortInformation;
 			readDoc(forSortInformation);
 			//判断文件是否是空的，如果是，提示录入信息
-			if (ifNotExitInformation(forSortInformation)) {
+			if (!forSortInformation.empty()) {
 				//按照学号的升序排序
 				stable_sort(forSortInformation.begin(), forSortInformation.end(), [](const Students &a, const Students &b) {return a.getStudentsNum() < b.getStudentsNum();});
 				putStudentsInformation(forSortInformation);
