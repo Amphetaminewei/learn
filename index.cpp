@@ -1,6 +1,8 @@
 #include"Students.h"
 
 using namespace std;
+
+using namespace std;
 using std::cin;
 using std::cout;
 
@@ -275,6 +277,7 @@ again:
 			if (!forSortInformation.empty()) {
 				//°´ÕÕÑ§ºÅµÄÉıĞòÅÅĞò
 				stable_sort(forSortInformation.begin(), forSortInformation.end(), [](const Students &a, const Students &b) {return a.getStudentsNum() < b.getStudentsNum();});
+				delEmpty(forSortInformation);
 				putStudentsInformation(forSortInformation);
 				openDoc();
 				putDoc(forSortInformation);

@@ -1,5 +1,7 @@
 #include"Students.h"
 
+using namespace std;
+
 //检查学生信息是否重复
 bool Students::ifSameId(vector<Students> &i) {
 	for (auto be = i.begin();be != i.end();++be) {
@@ -11,13 +13,13 @@ bool Students::ifSameId(vector<Students> &i) {
 }
 
 //重载 >> 输入对象信息
-istream &operator >> (istream &is, Students &item) {
+istream &operator >> (std::istream &is, Students &item) {
 	is >> item.Id >> item.Name >> item.Sex;
 	return is;
 }
 
 //重载 << 输出对象信息
-ostream &operator << (ostream &os, Students &item) {
+ostream &operator << (std::ostream &os, Students &item) {
 	os << item.Id << " " << item.Name << " " << item.Sex;
 	return os;
 }
