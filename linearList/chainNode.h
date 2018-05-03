@@ -2,11 +2,10 @@
 template<class T>
 class chainNode {
 //创建一个chainNode类型作为链表节点
-private:
+public:
 	T element;
 	chainNode<T> *next;
 
-public:
 	chainNode() { };
 	chainNode(const T& element) {
 		this->element = element;

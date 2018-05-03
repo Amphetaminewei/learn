@@ -33,7 +33,7 @@ chain<T>::chain(const chain<T>& theList) {
 		firstNode = new chainNode<T>(sourceNode->element);   //好像c++书上写过能用智能指针就别用普通指针，这里数据结构书里这样用指针是不是因为运行效率。
 		sourceNode = sourceNode->next;
 		chainNode<T>* targetNode = firstNode;
-		while (sourceNede != NULL) {
+		while (sourceNode != NULL) {
 			targetNode->next = new chainNode<T>(sourceNode->element);
 			targetNode = targetNode->next;
 			sourceNode = sourceNode->next;
