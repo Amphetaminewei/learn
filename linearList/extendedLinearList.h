@@ -9,5 +9,5 @@ class extendedLinearList : linearList<T> {
 public:
 	virtual ~extendedLinearList(){ }
 	virtual void clear();
-	virtual push_back(const T& theElement);
+	virtual void push_back(const T& theElement);
 };

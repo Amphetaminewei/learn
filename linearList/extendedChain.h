@@ -36,7 +36,7 @@ public:
 	//返回索引为theIndex的元素
 	T& get(int theIndex);
 
-	//返回元素theElement第一次出现的索引
+	//返回元素theElement第一次出现的索引,若不存在则返回-1
 	int indexOf(const T& theElement);
 
 	//删除索引为index的元素

@@ -102,23 +102,36 @@ int chain<T>::indexOf(const T& theElement) {
 
 template<class T>
 void chain<T>::erase(int theIndex) {
-	chainNode<T>* delNode = firstNode;
-	for (int i = 0;i < theIndex - 1;i++) {
-		delNode = delNode->next;
+	if (theIndex<0 || theIndex>listSize - 1) {
+		cout << "the index is wrong" << endl;
 	}
-	chainNode<T>* tempNode = delNode->next;
-	delNode->next = delNode->next->next;
-	//通过循环定位到theindex的位置，然后释放节点并将表长减一
-	delNode = NULL;
-	delete delNode->next;
-	listSize--;
+	else {
+		chainNode<T>* delNode = firstNode;
+		if (theIndex == 0) {
+			//如果删除的是首节点
+			firstNode = firstNode->next;
+			delete delNode;
+			listSize = listSize - 1;
+		}
+		else {
+			for (int i = 0;i < theIndex;i++) {
+				//定位到the index的前一个节点
+				delNode = delNode->next;
+			}
+			//chainNode<T>* tempNode = delNode->next;
+			delNode->next = delNode->next->next;
+			//通过循环定位到theindex前的位置，然后释放节点并将表长减一
+			delete delNode->next;
+			listSize = listSize - 1;
+		}
+	}
 }
 
 template<class T>
 void chain<T>::insert(int theIndex, const T& theElement) {
 	//定位到theIndex的前一个节点
 	chainNode<T>* tempNode = firstNode;
-	for (int i = 0;i < theIndex - 1;i++) {
+	for (int i = 0;i < theIndex;i++) {
 		tempNode = tempNode->next;
 	}
 	//创建一个新节点，地址域储存firstNode的下一个节点
