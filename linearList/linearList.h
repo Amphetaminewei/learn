@@ -6,23 +6,26 @@ template <class T>
 class linearList
 {
 public:
-	~linearList();
+	virtual ~linearList() { };
+
+	//返回是否为空
+	virtual bool empty() const = 0;
 
 	//返回元素个数
-	virtual int size();
+	virtual int size() const = 0;
 
 	//返回索引为index的元素
-	virtual T& get(int theIndex);
+	virtual T& get(int theIndex) const = 0;
 
 	//返回元素theElement第一次出现的索引
-	virtual int indexOf(const T& theElement);
+	virtual int indexOf(const T& theElement) const = 0;
 
 	//删除索引为index的元素
-	virtual void erase(int theIndex);
+	virtual void erase(int theIndex) = 0;
 
 	//把theElement插入索引为index的位置
-	virtual void insert(int theIndex, const T& theElement);
+	virtual void insert(int theIndex, const T& theElement) = 0;
 
 	//插入输出流out
-	virtual void output(std::ostream& out);
+	virtual void output(std::ostream& out) = 0;
 };
