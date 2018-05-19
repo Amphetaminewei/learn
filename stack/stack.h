@@ -17,5 +17,5 @@ class stack {
 	virtual void pop() = 0;
 
 	//½«ÔªËØtheElementÑ¹ÈëÕ»
-	virtual void push() = 0;
+	virtual void push(const T& theElement) = 0;
 };

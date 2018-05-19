@@ -58,7 +58,7 @@ void arrayStack<T>::pop() {
 }
 
 template<class T>
-void arrayStack<T>::push() {
+void arrayStack<T>::push(const T& theElement) {
 	if (stackTop == arrayLength - 1) {
 		//如果栈已满
 		//建立一个新数组
@@ -70,5 +70,7 @@ void arrayStack<T>::push() {
 		delete[]stack;
 		//让stack指向newArray的空间
 		stack = newArray;
+		arrayLength *= 2;
 	}
+	stack[++stackTop] = theElement;
 }

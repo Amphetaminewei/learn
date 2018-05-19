@@ -4,7 +4,7 @@
 //数组描述的栈
 
 template<class T>
-class arrayStack :public stack {
+class arrayStack :public stack<T> {
 
 public:
 	arrayStack(int initialCapacity);
@@ -13,7 +13,7 @@ public:
 	int size() const;
 	T& top();
 	void pop();
-	void push();
+	void push(const T& theElement);
 
 private:
 	int stackTop;          //栈顶元素的索引
