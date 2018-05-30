@@ -9,8 +9,8 @@ class sortedChain {
 //和链表类似的链字典，只是数据域变成了pair
 //自己根据链表实现，可能会有问题，但是可能我并不会承认
 private:
-	sortedNode* firstNode;
-	sortedNode* lastNode;
+	sortedNode<K, E>* firstNode;
+	sortedNode<K, E>* lastNode;
 	int dSize;
 
 public:
