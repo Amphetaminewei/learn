@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="open">C:/Users/Amphetamine/Pictures/1.png</file>
+        <file alias="save">C:/Users/Amphetamine/Pictures/2.png</file>
+    </qresource>
+</RCC>
