@@ -9,6 +9,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+
+
+    setWindowTitle("TextPad [*]");
+
     //两个动作的父对象都是主窗口
     openAction = new QAction(QIcon(":/images/open"),tr("&open"),this);
     saveAction = new QAction(QIcon(":/images/save"),tr("&save"),this);
@@ -43,6 +47,12 @@ MainWindow::MainWindow(QWidget *parent)
     //信号槽连接
     connect(openAction, &QAction::triggered, this, &MainWindow::openFile);
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveFile);
+
+    //增加关闭时的选项
+    connect(textEdit, &QTextEdit::textChanged, [=]() {
+        this->setWindowModified(true);
+    });
+
 
 }
 
@@ -102,5 +112,23 @@ void MainWindow::saveFile() {
         QMessageBox::warning(this,
                              tr("Path"),
                              tr("You did not select any file."));
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (isWindowModified()) {
+        bool exit = QMessageBox::question(this,
+                                      tr("Quit"),
+                                      tr("Are you sure to quit this application?"),
+                                      QMessageBox::Yes | QMessageBox::No,
+                                      QMessageBox::No) == QMessageBox::Yes;
+        if (exit) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
     }
 }

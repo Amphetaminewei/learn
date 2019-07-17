@@ -1,0 +1,11 @@
+#include "Eventlable.h"
+#include <QString>
+
+EventLable::EventLable()
+{
+
+}
+
+void EventLable::mouseMoveEvent(QMouseEvent *event) {
+    this->setText(QString("<center><h1>Move:(%1,%2)</h1></center>").arg(QString::number(QString::number(event->x()), QString::number(event->y())))
+}

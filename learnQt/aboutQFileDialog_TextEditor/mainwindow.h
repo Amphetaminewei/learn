@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QAction>
 #include <QTextEdit>
+#include <QCloseEvent>
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,9 @@ private:
     QAction *openAction;
     QAction *saveAction;
     QTextEdit *textEdit;
+
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // MAINWINDOW_H
