@@ -295,3 +295,21 @@ Qt 绘制系统简介：
     QImage与QPixmap相比，最大的优势在于能够进行像素级别的操作,你可以把QImage想象成一个 RGB 颜色的二维数组，记录了每一像素的颜色
     QPicture使用系统分辨率，并且可以调整QPainter来消除不同设备之间的显示差异
     如果我们要记录下QPainter的命令，首先要使用QPainter::begin()函数，将QPicture实例作为参数传递进去，以便告诉系统开始记录，记录完毕后使用QPainter::end()命令终止
+    
+
+Graphics View Framework：
+    Graphics View 提供了一种接口，用于管理大量自定义的 2D 图形元素，并与之进行交互；还提供了用于将这些元素进行可视化显示的观察组件，并支持缩放和旋转
+    Graphics View 框架包含了一套完整的事件体系，可以用于与场景中的元素进行双精度的交互
+    Graphics View 是一个基于元素（item）的 MV 架构的框架，它可以分成三个部分：元素 item、场景 scene 和视图 view
+    基于元素的意思是，它的每一个组件都是一个独立的元素
+    使用QPainter绘图，大多是采用一种面向过程的描述方式：首先使用drawLine()画一条直线，然后使用drawPolygon()画一个多边形
+    对于 Graphics View，相同的过程可以是，首先创建一个场景（scene），然后创建一个直线对象和一个多边形对象，再使用场景的add()函数，
+    将直线和多边形添加到场景中，最后通过视图进行观察，就可以看到了
+    MV 架构的意思是，Graphics View 提供一个 model 和一个 view（正如 MVC 架构，只不过 MV 架构少了 C 这么一个组件）
+    所谓模型（model）就是我们添加的种种对象；所谓视图（view）就是我们观察这些对象的视口
+    Graphics View 提供了QGraphicsScene作为场景，即是允许我们添加图形的空间，相当于整个世界
+    QGraphicsView作为视口，也就是我们的观察窗口，相当于照相机的取景框，这个取景框可以覆盖整个场景，也可以是场景的一部分
+    QGraphicsItem作为图形元件，以便添加到场景中去，Qt 内置了很多图形，比如直线、多边形等，它们都是继承自QGraphicsItem
+    QGraphicsScene不是QWidget的子类
+    本质上来说，GVF 只是一个绘图系统
+    QGraphicsScene的sceneRect属性供QGraphicsView确定视图默认的滚动条区域，并且协助QGraphicsScene管理元素索引（但是我没看懂
