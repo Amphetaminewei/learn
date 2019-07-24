@@ -313,3 +313,14 @@ Graphics View Framework：
     QGraphicsScene不是QWidget的子类
     本质上来说，GVF 只是一个绘图系统
     QGraphicsScene的sceneRect属性供QGraphicsView确定视图默认的滚动条区域，并且协助QGraphicsScene管理元素索引（但是我没看懂
+
+
+贪吃蛇：
+    选择 Graphics View Framework 作为核心框架
+    我们需要一个QGraphicsScene，作为游戏发生的舞台；一个QGraphicsView，作为观察游戏舞台的组件；以及若干元素，用于表示游戏对象，比如蛇、食物以及障碍物等
+    为了以后的实现方便（比如，我们希望向工具栏添加按钮等），我们不会直接以QGraphicsView作为顶层窗口，而是将其添加到一个主窗口上，也就是在MainWindow上添加
+    QTimer::singleShot简单来说，它的作用是，在 msec 毫秒之后，调用 receiver 的 member 槽函数,也就是说，它的作用是方便使用，无需重写timerEvent()函数或者是创建一个局部的QTimer对象
+    在我们的例子中，我们需要在视图绘制完毕后才去改变大小（视图绘制当然是在paintEvent()事件中），因此我们需要在下一次事件循环中调用adjustViewSize()函数
+    我们需要在视图绘制完毕后才去改变大小（视图绘制当然是在paintEvent()事件中），因此我们需要在下一次事件循环中调用adjustViewSize()函数
+
+好吧我折腾一下午就一个框架，还没折腾好，明天亲爱的过生日休息一天蒽
