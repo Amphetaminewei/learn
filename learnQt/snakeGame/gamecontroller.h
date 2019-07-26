@@ -7,7 +7,7 @@
 class GameController
 {
 public:
-    GameController(QGraphicsScene *sence, QWidget *parent);
+    GameController(QGraphicsScene **sence, QWidget *parent);
 };
 
 #endif // GAMECONTROLLER_H
