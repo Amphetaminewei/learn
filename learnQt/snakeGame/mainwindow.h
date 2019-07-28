@@ -17,7 +17,9 @@ public:
     ~MainWindow();
 
 private:
+    //设置场景大小
     void initScene();
+    //设置场景的背景
     void initSceneBackground();
 
     QGraphicsScene *scene;

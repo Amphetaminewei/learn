@@ -1,13 +1,25 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
+#include <QTimer>
 #include <QWidget>
 #include <QGraphicsScene>
 
-class GameController
+#include "snake.h"
+
+class GameController : public QObject
 {
+    Q_OBJECT
 public:
-    GameController(QGraphicsScene **sence, QWidget *parent);
+    GameController(QGraphicsScene *scene, QObject *parent);
+
+private:
+    QGraphicsScene *scene;
+    Snake *snake;
+    QTimer timer;
+
+    void pause();
+    void resume();
 };
 
 #endif // GAMECONTROLLER_H
