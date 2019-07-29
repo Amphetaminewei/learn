@@ -340,4 +340,5 @@ Graphics View Framework：
     GameController的工作是，初始化场景中的游戏对象，开始游戏循环，游戏循环通常使用定时器实现，因为应用程序不仅仅是一个游戏循环，还需要响应其它事件，比如游戏者的鼠标键盘操作
     GVF 中，每一帧都应该调用一个称为advance()的函数
     QGraphicsScene::advance()会调用场景中每一个元素自己的advance()函数，所以，如果图形元素需要做什么事，必须重写QGraphicsItem的advance()，然后在游戏循环中调用这个函数
-    
+    我们在蛇对象中增加一个用于代表蛇身体长度的growing变量：当growing为正数时，蛇的身体增加一格；当growing为负数时，蛇的身体减少一格
+    advance()函数用于编码移动部分，这个函数会在一秒内调用 30 次（这是我们在GameController的定时器中决定的）
