@@ -4,13 +4,14 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QDialog>
+#include <QIcon>
 
 #include "gamecontroller.h"
 #include "food.h"
 #include "snake.h"
 #include "wall.h"
 
-int KILL_NUM = 0;
+static int KILL_NUM = 0;
 
 GameController::GameController(QGraphicsScene &scene, QObject *parent)
     :QObject(parent), scene(scene), snake(new  Snake(*this)) {
@@ -40,14 +41,23 @@ void GameController::resume() {
 
 
 void GameController::gameOver() {
+
     ++KILL_NUM;
-    if(KILL_NUM == 10) {
-        QMessageBox::warning(nullptr, tr("弱智警告"), tr("死了这么多次我觉得可能你需要帮助"));
-        QMessageBox::information(nullptr, tr("准备好啦嘛"), tr("您的帮助要来了呢"));
+
+    if(KILL_NUM == 4) {
+        QMessageBox::warning(nullptr, tr("弱智警告"), tr("死了这么多次笨死啦"));
+    }
+    else if (KILL_NUM == 8) {
+        QMessageBox::information(nullptr, tr("哼哼笨猪猪"), tr("可能你需要一点帮助蒽"));
+    }
+    else if (KILL_NUM == 11) {
+        QMessageBox::information(nullptr, tr("果然没有我还是不行啊"), tr("我来给你一点点帮助蒽"));
+
         QDialog dialog;
 
-        dialog.setWindowTitle(tr("爱你鸭小宝贝"));
-        dialog.setStyleSheet("border-image:url(C:\ Users\Amphetamine \ Desktop3.png)");
+        dialog.setWindowTitle(tr("给你我的小心心❤"));
+        dialog.setWindowIcon(QIcon(":/img/2"));
+        dialog.setStyleSheet("background-image:url(:/img/3);");
         dialog.exec();
     }
     else {
@@ -60,6 +70,7 @@ void GameController::gameOver() {
         scene.addItem(snake);
 
         addNewFood();
+
     }
 
 }
