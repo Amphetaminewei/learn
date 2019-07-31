@@ -22,10 +22,18 @@ private:
     //设置场景的背景
     void initSceneBackground();
 
+    void gameHelp();
+    void gameAbout();
+
     QGraphicsScene *scene;
     QGraphicsView *view;
 
     GameController *game;
+
+    QAction *helpAction;
+    QAction *aboutAction;
+private slots:
+    void adjustViewSize();
 };
 
 #endif // MAINWINDOW_H

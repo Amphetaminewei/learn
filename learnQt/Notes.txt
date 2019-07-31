@@ -342,3 +342,8 @@ Graphics View Framework：
     QGraphicsScene::advance()会调用场景中每一个元素自己的advance()函数，所以，如果图形元素需要做什么事，必须重写QGraphicsItem的advance()，然后在游戏循环中调用这个函数
     我们在蛇对象中增加一个用于代表蛇身体长度的growing变量：当growing为正数时，蛇的身体增加一格；当growing为负数时，蛇的身体减少一格
     advance()函数用于编码移动部分，这个函数会在一秒内调用 30 次（这是我们在GameController的定时器中决定的）
+    QPointF在浮点精度上表征平面上的点，QRect返回一个矩形对象
+    Food的boundingRect()要大于其实际值，却不影响我们的游戏逻辑判断，这就是原因：因为我们使用的是Qt::IntersectsItemShape判断检测，这与boundingRect()无关
+    由于我们不希望只因为键盘事件而继承QGprahicsScene，而且我们希望做一个事件分离让场景和控制分离开,所以我们不选择继承而是为场景添加事件过滤器来控制键盘事件
+    由于添加了菜单栏后窗口大小被更改了，所以我更改了蛇的移动函数将滚动条右侧和下侧隐藏掉的部分舍弃
+    然后我准备添加一个边框，也就是墙

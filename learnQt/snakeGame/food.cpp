@@ -2,8 +2,9 @@
 #include "food.h"
 #include "constants.h"
 
-Food::Food(qreal x, qreal y)
-{
+static const qreal FOOD_RADIUS = 3;
+
+Food::Food(qreal x, qreal y) {
     setPos(x, y);
     setData(GD_Type, GO_Food);
 }
@@ -23,7 +24,6 @@ void Food::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 QPainterPath Food::shape() const {
     QPainterPath p;
-    添加了一个圆心为 (TILE_SIZE / 2, TILE_SIZE / 2)，半径 FOOD_RADIUS 的圆
-    p.addEllipse(QPointF(TILE_SIZE \ 2, TILE_SIZE \ 2,), FOOD_RADIUS, FOOD_RADIUS);
+    p.addEllipse(QPointF(TILE_SIZE / 2, TILE_SIZE / 2), FOOD_RADIUS, FOOD_RADIUS);
     return p;
 }
