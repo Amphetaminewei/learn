@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     initScene();
     initSceneBackground();
 
+    //0毫秒后重新绘制视图，也就是刷新一下背景
     QTimer::singleShot(0, this, SLOT(adjustViewSize()));
 
 }
@@ -51,6 +52,8 @@ void MainWindow::initScene() {
 }
 
 void MainWindow::initSceneBackground() {
+    //利用了qt的绘制系统，我这会儿在想直接来一个网格图会不会好一点蒽，尤其是墙要是用网格图会不会就不会被挡住了
+
     //首先我们创建一个边长TILE_SIZE的QPixmap，将其使用灰色填充矩形
     //边框颜色默认是黑色，然后将这个Pixmap作为场景刷铺满整个视图
     QPixmap bg(TILE_SIZE, TILE_SIZE);
@@ -58,6 +61,7 @@ void MainWindow::initSceneBackground() {
     p.setBrush(QBrush(Qt::gray));
     p.drawRect(0, 0, TILE_SIZE, TILE_SIZE);
 
+    //用brush做背景
     view->setBackgroundBrush(QBrush(bg));
 
 }
@@ -65,6 +69,7 @@ void MainWindow::initSceneBackground() {
 
 //更改视图大小
 void MainWindow::adjustViewSize() {
+    //绘制视图
     view->fitInView(scene->sceneRect(), Qt::KeepAspectRatioByExpanding);
 }
 
