@@ -19,7 +19,7 @@ Snake::Snake(GameController &controller) :
 
 
 QRectF Snake::boundingRect() const {
-    //返回矩形的坐标
+    //返回一个矩形包裹了整个蛇身
     qreal minX = head.x();
     qreal minY = head.y();
     qreal maxX = head.x();
@@ -46,13 +46,14 @@ QRectF Snake::boundingRect() const {
 }
 
 QPainterPath Snake::shape() const {
-    //函数决定了蛇身体的形状，我们遍历蛇身体的每一个方块向路径中添加
+    //函数返回实际的蛇身体路径
     QPainterPath path;
     path.setFillRule(Qt::WindingFill);
 
     path.addRect(QRectF(0, 0, SNAKE_SIZE, SNAKE_SIZE));
 
     foreach (QPointF p, tail) {
+        //在一个列表中保存蛇每个节点的路径，并按照这个路径绘制蛇身
         QPointF itemp = mapFromScene(p);
         path.addRect(QRectF(itemp.x(), itemp.y(), SNAKE_SIZE, SNAKE_SIZE));
     }
@@ -69,7 +70,7 @@ void Snake::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 
 
 
-//分别以 SNAKE_SIZE 为基准改变头部坐标，然后与场景边界比较，大于边界值时，设置为边界值
+//分别以 SNAKE_SIZE 为基准改变头部坐标，然后与场景边界比较，大于边界值时，设置为反方向的边界值
 //也就是蛇碰到右边时会从左边出来
 void Snake::moveLeft() {
     head.rx() -= SNAKE_SIZE;
@@ -103,6 +104,7 @@ void Snake::moveDown() {
 
 void Snake::setMoveDirection(Direction direction)
 {
+    //修改运动方向
     moveDirection = direction;
 }
 
@@ -111,10 +113,10 @@ void Snake::setMoveDirection(Direction direction)
 void Snake::handleCollisions() {
     QList<QGraphicsItem *> collisions = collidingItems();
 
-    // Check collisions with other objects on screen
+    // 检查蛇身体的碰撞
     foreach (QGraphicsItem *collidingItem, collisions) {
         if (collidingItem->data(GD_Type) == GO_Food) {
-            // Let GameController handle the event by putting another apple
+            //如果碰撞的对象是食物，则调用吃食物函数，并将蛇长度加一
             controller.snakeAteFood(this, (Food *)collidingItem);
             growing += 1;
         }
@@ -122,6 +124,7 @@ void Snake::handleCollisions() {
 
     // Check snake eating itself
     if (tail.contains(head)) {
+        //如果蛇身体的路径和蛇头路径重合，则调用蛇咬到自己函数
         controller.snakeAteItself(this);
     }
 }
@@ -134,7 +137,7 @@ void Snake::advance(int step) {
         return;
     }
     if (tickCounter++ % speed != 0) {
-        //tickCounter作为一个内部计时器，speed越高返回的越快难度也就越高
+        //tickCounter作为一个内部计时器，根据时间边长增加难度
         return;
     }
     if (moveDirection == NoMove) {
@@ -142,15 +145,18 @@ void Snake::advance(int step) {
     }
 
     if (growing > 0) {
+        //如果蛇的长度增加了也就是碰到了食物，就将蛇头的位置加到蛇身也就是长度加了一
         QPointF tailPoint = head;
         tail << tailPoint;
         growing -= 1;
     } else {
+        //如果没有则将蛇身的第一节设置为蛇头的路径
         tail.takeFirst();
         tail << head;
     }
 
     switch (moveDirection) {
+    //判断蛇的运动方向，并分别调用不同运动方向的函数
         case MoveLeft:
             moveLeft();
             break;
@@ -164,7 +170,7 @@ void Snake::advance(int step) {
             moveDown();
             break;
     }
-
+    //重新设置蛇头的坐标并检查碰撞
     setPos(head);
     handleCollisions();
 }

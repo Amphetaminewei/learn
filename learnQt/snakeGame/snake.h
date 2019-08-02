@@ -34,6 +34,7 @@ public:
     void setMoveDirection(Direction direction);
 
 protected:
+    //蛇运动并修改难度
     void advance(int);
 
 private:
@@ -43,10 +44,11 @@ private:
     int growing;
     //记录速度
     int speed;
-    //记录蛇的位置
+    //记录整个蛇身的位置
     QList<QPointF> tail;
     //计时器，控制速度
     int tickCounter;
+    //运动方向记录
     Direction moveDirection;
     GameController &controller;
 

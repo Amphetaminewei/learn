@@ -36,6 +36,7 @@ private:
     QAction *helpAction;
     QAction *aboutAction;
 private slots:
+    //更改视图的槽函数
     void adjustViewSize();
 };
 
