@@ -63,7 +63,6 @@ template<class T>
 template<class U>
 auto_ptr<T>& auto_ptr<T>::operator=(auto_ptr<U>& rhs) {
 	if (pointee != rhs.pointee) {
-		//符号不一样是因为this是指针而rhs是一个引用
 		//删除并返回右值的指针并将this的原指针删除并绑定到右值返回的指针上
 		this->reset(rhs.release());
 	}
