@@ -34,7 +34,7 @@ public:
 
 	//将拥有的指针删除，并得到p的拥有权
 	//也就是删除原指针并得到新指针的拥有权
-	void reset(T* p = 0);
+	void reset(T* p = nullptr);
 
 private:
 	//真实的指针
@@ -44,6 +44,7 @@ private:
 
 template<class T>
 auto_ptr<T>::auto_ptr(T* p):pointee(p) { }
+
 
 template<class T>
 template<class U>
