@@ -9,7 +9,7 @@ class auto_ptr {
 
 public:
 	//防止编译器帮我们做的隐式类型转换
-	explicit auto_ptr(T* p = 0);
+	explicit auto_ptr(T* p = nullptr);
 
 	//复制构造函数，供任何类型的auto_ptr进行复制，也就是左右两个auto_ptr类型可以不同
 	template<class U>
