@@ -379,3 +379,12 @@ Graphics View Framework：
     所以，我们定义的二进制格式通常具有一个魔术数字，用于标识文件的合法性
     我们在文件最开始写入 0xA0B0C0D0，在读取的时候首先检查这个数字是不是 0xA0B0C0D0
     Qt可以保证在不同平台上的输出相同，但是不保证不同版本的Qt输出相同，所以一般不仅会检查魔术数字，同时会检查版本
+
+
+文本文件读写：
+    Qt提供了QTextStream类来进行对文本的操作，和QDataStream的使用类似，只不过它是操作纯文本文件的
+    QTextStream会自动将 Unicode 编码同操作系统的编码进行转换，这一操作对开发人员是透明的
+    QTextStream同QDataStream的使用基本一致，类似标准库文件流，你也可以指定文件打开方式
+    使用文本文件时，很少会将其分割开来读取，而是使用诸如QTextStream::readLine()读取一行，使用QTextStream::readAll()读取所有文本这种函数，之后再对获得的QString对象进行处理
+    为方便起见，QTextStream同std::cout一样提供了很多描述符，被称为 stream manipulators
+    QTextStream也可以直接把内容输出到QString
